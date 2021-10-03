@@ -1,0 +1,8 @@
+{
+  "generator-jhipster:7.2.0": {
+    "promptValues": {
+      "packageName": "com.interview.bookstore",
+      "nativeLanguage": "en"
+    }
+  }
+}
