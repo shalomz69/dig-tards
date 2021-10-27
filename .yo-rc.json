@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "applicationType": "monolith",
     "baseName": "bookstore",
-    "jhipsterVersion": "7.2.0",
+    "jhipsterVersion": "7.3.1",
     "skipClient": false,
     "skipServer": false,
     "skipUserManagement": false,

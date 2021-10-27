@@ -19,7 +19,6 @@ export const AuthorUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.author.loading);
   const updating = useAppSelector(state => state.author.updating);
   const updateSuccess = useAppSelector(state => state.author.updateSuccess);
-
   const handleClose = () => {
     props.history.push('/author' + props.location.search);
   };

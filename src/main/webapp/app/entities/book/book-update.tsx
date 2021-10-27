@@ -22,7 +22,6 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.book.loading);
   const updating = useAppSelector(state => state.book.updating);
   const updateSuccess = useAppSelector(state => state.book.updateSuccess);
-
   const handleClose = () => {
     props.history.push('/book' + props.location.search);
   };
@@ -47,7 +46,7 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...bookEntity,
       ...values,
-      author: authors.find(it => it.id.toString() === values.authorId.toString()),
+      author: authors.find(it => it.id.toString() === values.author.toString()),
     };
 
     if (isNew) {
@@ -62,7 +61,7 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           ...bookEntity,
-          authorId: bookEntity?.author?.id,
+          author: bookEntity?.author?.id,
         };
 
   return (
@@ -103,7 +102,7 @@ export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   validate: v => isNumber(v) || 'This field should be a number.',
                 }}
               />
-              <ValidatedField id="book-author" name="authorId" data-cy="author" label="Author" type="select" required>
+              <ValidatedField id="book-author" name="author" data-cy="author" label="Author" type="select" required>
                 <option value="" key="0" />
                 {authors
                   ? authors.map(otherEntity => (

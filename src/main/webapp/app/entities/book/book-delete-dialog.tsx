@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 
@@ -8,10 +8,12 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './book.reducer';
 
 export const BookDeleteDialog = (props: RouteComponentProps<{ id: string }>) => {
+  const [loadModal, setLoadModal] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getEntity(props.match.params.id));
+    setLoadModal(true);
   }, []);
 
   const bookEntity = useAppSelector(state => state.book.entity);
@@ -22,8 +24,9 @@ export const BookDeleteDialog = (props: RouteComponentProps<{ id: string }>) => 
   };
 
   useEffect(() => {
-    if (updateSuccess) {
+    if (updateSuccess && loadModal) {
       handleClose();
+      setLoadModal(false);
     }
   }, [updateSuccess]);
 
