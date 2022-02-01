@@ -1,4 +1,6 @@
 {
+  "changelogDate": "20210916215954",
+  "dto": "no",
   "fields": [
     {
       "fieldName": "title",
@@ -12,20 +14,18 @@
       "fieldValidateRulesMin": 0
     }
   ],
+  "jpaMetamodelFiltering": false,
+  "name": "Book",
+  "pagination": "pagination",
+  "readOnly": false,
   "relationships": [
     {
-      "relationshipName": "author",
+      "otherEntityField": "name",
       "otherEntityName": "author",
+      "relationshipName": "author",
       "relationshipType": "many-to-one",
-      "relationshipValidateRules": ["required"],
-      "otherEntityField": "name"
+      "relationshipValidateRules": ["required"]
     }
   ],
-  "service": "serviceClass",
-  "dto": "no",
-  "jpaMetamodelFiltering": false,
-  "readOnly": false,
-  "pagination": "pagination",
-  "name": "Book",
-  "changelogDate": "20210916215954"
+  "service": "serviceClass"
 }

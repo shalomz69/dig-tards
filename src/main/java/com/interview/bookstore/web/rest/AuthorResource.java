@@ -145,7 +145,7 @@ public class AuthorResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of authors in body.
      */
     @GetMapping("/authors")
-    public ResponseEntity<List<Author>> getAllAuthors(Pageable pageable) {
+    public ResponseEntity<List<Author>> getAllAuthors(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Authors");
         Page<Author> page = authorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
