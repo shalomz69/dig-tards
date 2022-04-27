@@ -1,24 +1,24 @@
 # bookstore
 
-This application was generated using JHipster 7.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.6.0](https://www.jhipster.tech/documentation-archive/v7.6.0).
+This application was generated using JHipster 7.8.1, you can find documentation and help at [https://www.jhipster.tech](https://www.jhipster.tech).
 
-## Using Docker to simplify development
+## Project Structure
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+Node is required for generation and recommended for development. `package.json` is always generated for a better development experience with prettier, commit hooks, scripts and so on.
 
-For example, to start a mysql database in a docker container, run:
+In the project root, JHipster generates configuration files for tools like git, prettier, eslint, husk, and others that are well known and you can find references in the web.
 
-```
-docker-compose -f src/main/docker/mysql.yml up -d
-```
+`/src/*` structure follows default Java structure.
 
-To stop it and remove the container, run:
+- `.yo-rc.json` - Yeoman configuration file
+  JHipster configuration is stored in this file at `generator-jhipster` key. You may find `generator-jhipster-*` for specific blueprints configuration.
+- `.yo-resolve` (optional) - Yeoman conflict resolver
+  Allows to use a specific action when conflicts are found skipping prompts for files that matches a pattern. Each line should match `[pattern] [action]` with pattern been a [Minimatch](https://github.com/isaacs/minimatch#minimatch) pattern and action been one of skip (default if ommited) or force. Lines starting with `#` are considered comments and are ignored.
+- `.jhipster/*.json` - JHipster entity configuration files
 
-```
-docker-compose -f src/main/docker/mysql.yml down
-```
-
-For more information refer to [Using Docker and Docker-Compose][].
+- `npmw` - wrapper to use locally installed npm.
+  JHipster installs Node and npm locally using the build tool by default. This wrapper makes sure npm is installed locally and uses it avoiding some differences different versions can cause. By using `./npmw` instead of the traditional `npm` you can configure a Node-less environment to develop or test your application.
+- `/src/main/docker` - Docker configurations for the application and services that the application depends on
 
 ## Development
 
@@ -68,14 +68,32 @@ npm test
 
 For more information, refer to the [Running tests page][].
 
+## Using Docker to simplify development (optional)
+
+You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+
+For example, to start a mysql database in a docker container, run:
+
+```
+docker-compose -f src/main/docker/mysql.yml up -d
+```
+
+To stop it and remove the container, run:
+
+```
+docker-compose -f src/main/docker/mysql.yml down
+```
+
+For more information refer to [Using Docker and Docker-Compose][].
+
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 7.6.0 archive]: https://www.jhipster.tech/documentation-archive/v7.6.0
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v7.6.0/development/
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v7.6.0/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v7.6.0/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v7.6.0/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v7.6.0/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v7.6.0/setting-up-ci/
+[jhipster 7.8.1 archive]: https://www.jhipster.tech
+[using jhipster in development]: https://www.jhipster.tech/development/
+[using docker and docker-compose]: https://www.jhipster.tech/docker-compose
+[using jhipster in production]: https://www.jhipster.tech/production/
+[running tests page]: https://www.jhipster.tech/running-tests/
+[code quality page]: https://www.jhipster.tech/code-quality/
+[setting up continuous integration]: https://www.jhipster.tech/setting-up-ci/
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/
 [webpack]: https://webpack.github.io/

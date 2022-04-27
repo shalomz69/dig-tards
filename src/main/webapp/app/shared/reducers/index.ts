@@ -1,3 +1,4 @@
+import { ReducersMapObject, combineReducers } from '@reduxjs/toolkit';
 import { loadingBarReducer as loadingBar } from 'react-redux-loading-bar';
 
 import authentication from './authentication';
@@ -10,13 +11,10 @@ import activate from 'app/modules/account/activate/activate.reducer';
 import password from 'app/modules/account/password/password.reducer';
 import settings from 'app/modules/account/settings/settings.reducer';
 import passwordReset from 'app/modules/account/password-reset/password-reset.reducer';
-// prettier-ignore
-import author from 'app/entities/author/author.reducer';
-// prettier-ignore
-import book from 'app/entities/book/book.reducer';
+import entitiesReducers from 'app/entities/reducers';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
-const rootReducer = {
+const rootReducer: ReducersMapObject = {
   authentication,
   applicationProfile,
   administration,
@@ -26,10 +24,9 @@ const rootReducer = {
   passwordReset,
   password,
   settings,
-  author,
-  book,
-  /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
+  /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
+  ...entitiesReducers,
 };
 
 export default rootReducer;

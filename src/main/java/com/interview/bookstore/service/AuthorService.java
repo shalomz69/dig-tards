@@ -37,6 +37,17 @@ public class AuthorService {
     }
 
     /**
+     * Update a author.
+     *
+     * @param author the entity to save.
+     * @return the persisted entity.
+     */
+    public Author update(Author author) {
+        log.debug("Request to save Author : {}", author);
+        return authorRepository.save(author);
+    }
+
+    /**
      * Partially update a author.
      *
      * @param author the entity to update partially.

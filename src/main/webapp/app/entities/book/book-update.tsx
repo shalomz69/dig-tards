@@ -4,13 +4,14 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IAuthor } from 'app/shared/model/author.model';
-import { getEntities as getAuthors } from 'app/entities/author/author.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './book.reducer';
-import { IBook } from 'app/shared/model/book.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+
+import { IAuthor } from 'app/shared/model/author.model';
+import { getEntities as getAuthors } from 'app/entities/author/author.reducer';
+import { IBook } from 'app/shared/model/book.model';
+import { getEntity, updateEntity, createEntity, reset } from './book.reducer';
 
 export const BookUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();

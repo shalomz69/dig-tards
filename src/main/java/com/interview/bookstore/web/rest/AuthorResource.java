@@ -95,7 +95,7 @@ public class AuthorResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Author result = authorService.save(author);
+        Author result = authorService.update(author);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, author.getId().toString()))

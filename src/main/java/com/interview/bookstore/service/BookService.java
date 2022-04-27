@@ -37,6 +37,17 @@ public class BookService {
     }
 
     /**
+     * Update a book.
+     *
+     * @param book the entity to save.
+     * @return the persisted entity.
+     */
+    public Book update(Book book) {
+        log.debug("Request to save Book : {}", book);
+        return bookRepository.save(book);
+    }
+
+    /**
      * Partially update a book.
      *
      * @param book the entity to update partially.
@@ -73,6 +84,15 @@ public class BookService {
     }
 
     /**
+     * Get all the books with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Page<Book> findAllWithEagerRelationships(Pageable pageable) {
+        return bookRepository.findAllWithEagerRelationships(pageable);
+    }
+
+    /**
      * Get one book by id.
      *
      * @param id the id of the entity.
@@ -81,7 +101,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public Optional<Book> findOne(Long id) {
         log.debug("Request to get Book : {}", id);
-        return bookRepository.findById(id);
+        return bookRepository.findOneWithEagerRelationships(id);
     }
 
     /**

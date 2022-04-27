@@ -4,9 +4,10 @@ import { Button, Row, Col } from 'reactstrap';
 import {} from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntity } from './book.reducer';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
+
+import { getEntity } from './book.reducer';
 
 export const BookDetail = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();

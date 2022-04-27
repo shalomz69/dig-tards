@@ -22,7 +22,7 @@
     "entities": ["Author", "Book"],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
-    "jhipsterVersion": "7.6.0",
+    "jhipsterVersion": "7.8.1",
     "jwtSecretKey": "MWU4YzIwMDFhMWM2MjI4M2ZmMTQyNzYzYWU1NjFkNzRjZmQwOGU0MjcxZDVjNDExYmQyZWMwNzdjZmNiZDEwOTkzY2MyMjUxY2I1ZTc4ODE4N2ZlZmY5MDk0MmE4ODQ0OWM2MjVkMDQ4ZWM3ZjllOTYwMDY4MjhhYjBiODVjOTc=",
     "languages": ["en", "fr"],
     "messageBroker": false,

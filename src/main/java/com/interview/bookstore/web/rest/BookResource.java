@@ -93,7 +93,7 @@ public class BookResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Book result = bookService.save(book);
+        Book result = bookService.update(book);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, book.getId().toString()))
@@ -140,12 +140,21 @@ public class BookResource {
      * {@code GET  /books} : get all the books.
      *
      * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of books in body.
      */
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAllBooks(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<Book>> getAllBooks(
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
+        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+    ) {
         log.debug("REST request to get a page of Books");
-        Page<Book> page = bookService.findAll(pageable);
+        Page<Book> page;
+        if (eagerload) {
+            page = bookService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = bookService.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
