@@ -3,6 +3,8 @@ package com.interview.bookstore.web.rest;
 import com.interview.bookstore.domain.Author;
 import com.interview.bookstore.repository.AuthorRepository;
 import com.interview.bookstore.service.AuthorService;
+import com.interview.bookstore.service.dto.ReviewDTO;
+import com.interview.bookstore.service.providers.AuthorBooksProvider;
 import com.interview.bookstore.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -40,12 +42,15 @@ public class AuthorResource {
     private String applicationName;
 
     private final AuthorService authorService;
-
     private final AuthorRepository authorRepository;
+    private final AuthorBooksProvider authorBooksProvider;
 
-    public AuthorResource(AuthorService authorService, AuthorRepository authorRepository) {
+    public AuthorResource(AuthorService authorService,
+                          AuthorRepository authorRepository,
+                          AuthorBooksProvider authorBooksProvider) {
         this.authorService = authorService;
         this.authorRepository = authorRepository;
+        this.authorBooksProvider = authorBooksProvider;
     }
 
     /**
@@ -179,5 +184,25 @@ public class AuthorResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code GET  /authors/books} : get books for author.
+     *
+     * @param authorName
+     * @param publisherName eg NY_TIME, GOOGLE // enum for future
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of books in body.
+     */
+
+    @GetMapping("/authors/books")
+    public ResponseEntity<List<ReviewDTO>> getAuthorBooks(
+        @RequestParam(name = "authorName") String authorName,
+        @RequestParam(name = "publisher", defaultValue = "NY_TIMES") String publisherName) {
+        try {
+            return authorBooksProvider.provide(publisherName).fetchBooks(authorName);
+        } catch (Exception e) {
+            // Handle other exceptions
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
