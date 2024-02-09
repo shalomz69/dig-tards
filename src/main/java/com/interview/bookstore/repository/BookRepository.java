@@ -37,4 +37,25 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("select book from Book book left join fetch book.author where book.id =:id")
     Optional<Book> findOneWithToOneRelationships(@Param("id") Long id);
+
+    @Query(
+        value = "select distinct book from Book book left join fetch book.author" +
+        " where (:max_price is null or book.price <= :max_price)" +
+        " and (:min_price is null or book.price >= :min_price)",
+        countQuery = "select count(distinct book) from Book book"
+    )
+    Page<Book> findByFiltersWithEagerRelationships(
+        @Param("max_price") Float maxPrice,
+        @Param("min_price") Float minPrice,
+        Pageable pageable);
+
+    @Query(
+        "select book from Book book" +
+        " where (:max_price is null or book.price <= :max_price)" +
+        " and (:min_price is null or book.price >= :min_price)"
+    )
+    Page<Book> findByFilters(
+        @Param("max_price") Float maxPrice,
+        @Param("min_price") Float minPrice,
+        Pageable pageable);
 }

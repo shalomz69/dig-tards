@@ -113,4 +113,34 @@ public class BookService {
         log.debug("Request to delete Book : {}", id);
         bookRepository.deleteById(id);
     }
+
+    /**
+     *
+     * @param maxPrice
+     * @param minPrice
+     * @param pageable
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Page<Book> findByFiltersWithEagerRelationships(Float maxPrice,
+                                    Float minPrice,
+                                    Pageable pageable) {
+        log.debug("Request to get Books by filters and eager relationships");
+        return bookRepository.findByFiltersWithEagerRelationships(maxPrice, minPrice, pageable);
+    }
+
+    /**
+     *
+     * @param maxPrice
+     * @param minPrice
+     * @param pageable
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Page<Book> findByFilters(Float maxPrice,
+                                    Float minPrice,
+                                    Pageable pageable) {
+        log.debug("Request to get Books by filters");
+        return bookRepository.findByFilters(maxPrice, minPrice, pageable);
+    }
 }

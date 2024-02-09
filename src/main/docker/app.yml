@@ -4,6 +4,7 @@ services:
   bookstore-app:
     image: bookstore
     environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=*:5005,server=y,suspend=n
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
@@ -13,7 +14,9 @@ services:
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:8080:8080
+      - 8080:8080
+      - 5005:5005
+
   bookstore-mysql:
     image: mysql:8.0.28
     # volumes:

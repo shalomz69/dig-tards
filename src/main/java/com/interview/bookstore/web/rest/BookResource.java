@@ -13,11 +13,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -137,23 +137,27 @@ public class BookResource {
     }
 
     /**
-     * {@code GET  /books} : get all the books.
+     * {@code GET  /books} : get all the books with options to filter.
      *
-     * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param minPrice min price >= of book.
+     * @param maxPrice max price <=  of book.
+     * @param eagerLoad flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of books in body.
      */
+
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAllBooks(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false, defaultValue = "true") boolean eagerload
-    ) {
+    public ResponseEntity<List<Book>> getBooks(
+        @RequestParam(name = "minPrice", required = false) Float minPrice,
+        @RequestParam(name = "maxPrice", required = false) Float maxPrice,
+        @RequestParam(required = false, defaultValue = "true") boolean eagerLoad,
+        @ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Books");
         Page<Book> page;
-        if (eagerload) {
-            page = bookService.findAllWithEagerRelationships(pageable);
+        if (eagerLoad) {
+            page = bookService.findByFiltersWithEagerRelationships(maxPrice, minPrice, pageable);
         } else {
-            page = bookService.findAll(pageable);
+            page = bookService.findByFilters(maxPrice, minPrice, pageable);
+            //to include eager in 1 query to control left join need to  build query with entityManager
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
