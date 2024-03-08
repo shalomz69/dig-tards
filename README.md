@@ -1,5 +1,7 @@
 # bookstore
 
+Dig sec from Tardland.
+
 This application was generated using JHipster 7.8.1, you can find documentation and help at [https://www.jhipster.tech](https://www.jhipster.tech).
 
 ## Project Structure
@@ -9,12 +11,6 @@ Node is required for generation and recommended for development. `package.json` 
 In the project root, JHipster generates configuration files for tools like git, prettier, eslint, husk, and others that are well known and you can find references in the web.
 
 `/src/*` structure follows default Java structure.
-
-- `.yo-rc.json` - Yeoman configuration file
-  JHipster configuration is stored in this file at `generator-jhipster` key. You may find `generator-jhipster-*` for specific blueprints configuration.
-- `.yo-resolve` (optional) - Yeoman conflict resolver
-  Allows to use a specific action when conflicts are found skipping prompts for files that matches a pattern. Each line should match `[pattern] [action]` with pattern been a [Minimatch](https://github.com/isaacs/minimatch#minimatch) pattern and action been one of skip (default if ommited) or force. Lines starting with `#` are considered comments and are ignored.
-- `.jhipster/*.json` - JHipster entity configuration files
 
 - `npmw` - wrapper to use locally installed npm.
   JHipster installs Node and npm locally using the build tool by default. This wrapper makes sure npm is installed locally and uses it avoiding some differences different versions can cause. By using `./npmw` instead of the traditional `npm` you can configure a Node-less environment to develop or test your application.
@@ -68,23 +64,40 @@ npm test
 
 For more information, refer to the [Running tests page][].
 
-## Using Docker to simplify development (optional)
+## Using Docker to simplify development 
 
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
 For example, to start a mysql database in a docker container, run:
 
+Search docker command which builds the app docker:
 ```
-docker-compose -f src/main/docker/mysql.yml up -d
+'java:docker': './mvnw -DskipTests -Pprod jib:dockerBuild
 ```
+Then composeUp the app.yml file which raises mysql and app.
 
-To stop it and remove the container, run:
-
-```
-docker-compose -f src/main/docker/mysql.yml down
-```
 
 For more information refer to [Using Docker and Docker-Compose][].
+
+### The Task
+   
+1) Add an API in the backend that will return only cheap books (Price is less/equal than 20).
+   Keep in mind that although now you have only a few books, one day you will have
+   millions of them.
+2) In this task we use an API provided by the New York Times. The API call will return the
+   author's book list.
+   Given an author, the API should return the list of the author’s books (Note: The API
+   provides the reviews, you’ll have to extract the relevant values out of it) using a 3rd party
+   API of https://developer.nytimes.com/docs/books-product/1/overview - “Books API”.
+   Please design your code in a way which allows replacing the 3rd party API with other
+   providers in an easy way (e.g tomorrow your teammate will have to add another API).
+   Commit and push everything to GitHub.
+   Create your own API keys in https://developer.nytimes.com
+3) Check everthing works by using the swaggers generated through the app.   
+
+Notes:
+
+● Aim to spend no more than approximately 3 hours on this task!!!!
 
 [jhipster homepage and latest documentation]: https://www.jhipster.tech
 [jhipster 7.8.1 archive]: https://www.jhipster.tech
